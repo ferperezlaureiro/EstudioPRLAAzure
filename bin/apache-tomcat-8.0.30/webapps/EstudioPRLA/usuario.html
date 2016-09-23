@@ -1,0 +1,197 @@
+<div ng-controller="usuarioController">
+	
+	<div class="jumbotron">
+		<div class="panel panel-default" ng-hide="usuarios == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Usuarios</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li>
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAgregarUsuario()">Agregar Usuario</button>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<div class="table-responsive">
+				<table class="table table-striped"> 
+					<thead> 
+						<tr> 
+							<th>Usuario</th> 
+							<th>Nombre</th> 
+							<th>Cedula</th> 
+							<th>Email</th> 
+							<th>Tel</th> 
+							<th>Cel</th> 
+							<th>Domicilio</th> 
+							<th>Domicilio Laboral</th> 
+							<th>Fecha de Nacimiento</th>
+							<th>Rut</th>
+							<th>Eliminar</th> 
+							<th>Modificar</th> 
+							<th>Detalle</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="usuario in usuarios"> 
+							<td>{{usuario.usuario}}</td> 
+							<td>{{usuario.nombre}}</td> 
+							<td>{{usuario.cedula}}</td> 
+							<td>{{usuario.email}}</td> 
+							<td>{{usuario.tel}}</td> 
+							<td>{{usuario.cel}}</td> 
+							<td>{{usuario.domicilio}}</td> 
+							<td>{{usuario.domicilioLaboral}}</td> 
+							<td>{{usuario.fechaDeNacimiento}}</td> 
+							<td>{{usuario.rut}}</td> 
+							<td>
+								<button class="btn glyphicon glyphicon-remove" type="button" ng-click="eliminarUsuario(usuario.usuario)"></button>
+							</td>
+							<td>
+								<button class="btn glyphicon glyphicon-edit" type="button" ng-click="MostrarModificarUsuario(usuario.usuario)"></button>
+							</td>
+							<td>
+								<button class="btn glyphicon glyphicon-eye-open" type="button" ng-click="detalleUsuario(usuario.usuario)"></button>
+							</td>
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show="usuarios == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No hay usuarios registrados</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li>
+	              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAgregarUsuario()">Agregar Usuario</button>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+	
+	<div class="jumbotron" ng-show="usuarioFormShow">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="usuario">Usuario:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="usuario" placeholder="Ingresar Usuario" ng-model="usuario">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="contrasenia">Contrasenia:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="contrasenia" placeholder="Ingresar Contrasenia" ng-model="contrasenia">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nombre">Nombre:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="nombre" placeholder="Ingresar Nombre" ng-model="nombre">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="cedula">Cedula:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="cedula" placeholder="Ingresar Cedula" ng-model="cedula">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="email">Email:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="email" placeholder="Ingresar Email" ng-model="email">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="tel">Tel:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="tel" placeholder="Ingresar Tel" ng-model="tel">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="cel">Cel:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="cel" placeholder="Ingresar Cel" ng-model="cel">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="domicilio">Domicilio:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="domicilio" placeholder="Ingresar Domicilio" ng-model="domicilio">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="domicilioLaboral">Domicilio Laboral:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="domicilioLaboral" placeholder="Ingresar Domicilio Laboral" ng-model="domicilioLaboral">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="fechaDeNacimiento">Fecha de Nacimiento:</label>
+				<div class="col-sm-10">
+					<p class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFechaDeNacimiento" is-open="fechaNacimientoPopUp.opened" datepicker-options="dateOptions" close-text="Close"/>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="rut">Rut:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="rut" placeholder="Ingresar Rut" ng-model="rut">
+				</div>
+			</div>
+
+			<div class="alert alert-danger" role="alert" ng-show="errores.usuarioVacio || errores.usuarioFormato || errores.usuarioDuplicado || errores.contraseniaVacia || errores.contraseniaFormato || errores.nombreVacio || errores.nombreFormato || errores.cedulaVacia || errores.cedulaFormato || errores.emailVacio || errores.emailFormato || errores.telFormato || errores.celVacio || errores.celFormato || errores.domicilioFormato || errores.domicilioLaboralFormato || errores.fechaVacia || errores.fechaFormato || errores.rutFormato">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span>Corregir errores:</span>
+				<span ng-show="errores.usuarioVacio"></br>- Campo Usuario vacio</span>
+				<span ng-show="errores.usuarioFormato"></br>- Error formato Usuario (ej: Ejemplo - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula y una minuscula)</span>
+				<span ng-show="errores.usuarioDuplicado"></br>- Ya hay un usuario registrado con el mismo Usuario</span>
+				<span ng-show="errores.contraseniaVacia"></br>- Campo Contraseña vacio</span>
+				<span ng-show="errores.contraseniaFormato"></br>- Error formato Contraseña (ej: Ejemplo1! - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula, una minuscula, un numero y un caracter no alfanumerico)</span>
+				<span ng-show="errores.nombreVacio"></br>- Campo Nombre vacio</span>
+				<span ng-show="errores.nombreFormato"></br>- Error formato Nombre (debe contener de dos a cuatro palabras)</span>
+				<span ng-show="errores.cedulaVacia"></br>- Campo Cedula vacio</span>
+				<span ng-show="errores.cedulaFormato"></br>- Error formato Cedula (ej: 51458794 - sin puntos ni guiones)</span>
+				<span ng-show="errores.emailVacio"></br>- Campo Email vacio</span>
+				<span ng-show="errores.emailFormato"></br>- Error formato Email (ej: ejemplo@ejemplo.com)</span>
+				<span ng-show="errores.telFormato"></br>- Error formato Tel (ej: 29999999)</span>
+				<span ng-show="errores.celVacio"></br>- Campo Cel vacio</span>
+				<span ng-show="errores.celFormato"></br>- Error formato Cel (ej: 099999999)</span>
+				<span ng-show="errores.domicilioFormato"></br>- Error formato Domicilio(ej: Calle 1111)</span>
+				<span ng-show="errores.domicilioLaboralFormato"></br>- Error formato Domicilio Laboral(ej: Calle 1111)</span>
+				<span ng-show="errores.fechaVacia"></br>- Campo Fecha de Nacimiento vacio</span>
+				<span ng-show="errores.fechaFormato"></br>- Error de formato de Fecha de Nacimiento (ej: 25/05/2015 - usar seleccionador de fecha)</span>
+				<span ng-show="errores.rutFormato"></br>- Error de formato de Rut (ej: )</span>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="agregarUsuario()" ng-show="botonAgregarUsuario">Agregar</button>
+					<button type="button" class="btn btn-default" ng-click="modificarUsuario()" ng-show="botonModificarUsuario">Modificar</button>
+					<button type="button" class="btn btn-default" ng-click="cancelarUsuario()">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

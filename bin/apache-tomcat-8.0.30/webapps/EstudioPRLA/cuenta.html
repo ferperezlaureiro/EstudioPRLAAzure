@@ -1,0 +1,154 @@
+<div ng-controller="cuentaController">
+	<div class="jumbotron">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Datos generales usuario</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li ng-hide="modificandoUsuario || cambiarContraseniaFormShow">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="cambiarAModificar()">Modificar Usuario</button>
+		              			</li>
+		              			<li ng-hide="modificandoUsuario || cambiarContraseniaFormShow">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarCambiarContrasenia()">Cambiar Contrasenia</button>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span>Usuario: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.usuario}}</span>
+					<input type="text" class="form-control" id="usuario" placeholder="Ingresar Usuario" ng-model="miCuenta.usuario" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Nombre: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.nombre}}</span>
+					<input type="text" class="form-control" id="nombre" placeholder="Ingresar Nombre" ng-model="miCuenta.nombre" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Cedula: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.cedula}}</span>
+					<input type="text" class="form-control" id="cedula" placeholder="Ingresar Cedula" ng-model="miCuenta.cedula" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Email: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.email}}</span>
+					<input type="text" class="form-control" id="email" placeholder="Ingresar Email" ng-model="miCuenta.email" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Tel: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.tel}}</span>
+					<input type="text" class="form-control" id="tel" placeholder="Ingresar Tel" ng-model="miCuenta.tel" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Cel: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.cel}}</span>
+					<input type="text" class="form-control" id="cel" placeholder="Ingresar Cel" ng-model="miCuenta.cel" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Domicilio: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.domicilio}}</span>
+					<input type="text" class="form-control" id="domicilio" placeholder="Ingresar Domicilio" ng-model="miCuenta.domicilio" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Domicilio Laboral: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.domicilioLaboral}}</span>
+					<input type="text" class="form-control" id="domicilioLaboral" placeholder="Ingresar Domicilio Laboral" ng-model="miCuenta.domicilioLaboral" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Rut: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.rut}}</span>
+					<input type="text" class="form-control" id="rut" placeholder="Ingresar Rut" ng-model="miCuenta.rut" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Fecha de Nacimiento: </span>
+					<span ng-hide="modificandoUsuario">{{miCuenta.fechaDeNacimiento}}</span>
+					<div ng-hide="!modificandoUsuario">
+						<p class="input-group">
+							<input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFechaDeNacimiento" is-open="fechaNacimientoPopUp.opened" datepicker-options="dateOptions" close-text="Close"/>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+				</li>
+			</ul>
+
+
+			<div class="alert alert-danger" role="alert" ng-show="modificandoUsuario && (errores.usuarioVacio || errores.usuarioFormato || errores.usuarioDuplicado || errores.contraseniaVacia || errores.contraseniaFormato || errores.nombreVacio || errores.nombreFormato || errores.cedulaVacia || errores.cedulaFormato || errores.emailVacio || errores.emailFormato || errores.telFormato || errores.celVacio || errores.celFormato || errores.domicilioFormato || errores.domicilioLaboralFormato || errores.fechaVacia || errores.fechaFormato || errores.rutFormato)">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span>Corregir errores:</span>
+				<span ng-show="errores.usuarioVacio"></br>- Campo Usuario vacio</span>
+				<span ng-show="errores.usuarioFormato"></br>- Error formato Usuario (ej: Ejemplo - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula y una minuscula)</span>
+				<span ng-show="errores.usuarioDuplicado"></br>- Ya hay un usuario registrado con el mismo Usuario</span>
+				<span ng-show="errores.nombreVacio"></br>- Campo Nombre vacio</span>
+				<span ng-show="errores.nombreFormato"></br>- Error formato Nombre (debe contener de dos a cuatro palabras)</span>
+				<span ng-show="errores.cedulaVacia"></br>- Campo Cedula vacio</span>
+				<span ng-show="errores.cedulaFormato"></br>- Error formato Cedula (ej: 51458794 - sin puntos ni guiones)</span>
+				<span ng-show="errores.emailVacio"></br>- Campo Email vacio</span>
+				<span ng-show="errores.emailFormato"></br>- Error formato Email (ej: ejemplo@ejemplo.com)</span>
+				<span ng-show="errores.telFormato"></br>- Error formato Tel (ej: 29999999)</span>
+				<span ng-show="errores.celVacio"></br>- Campo Cel vacio</span>
+				<span ng-show="errores.celFormato"></br>- Error formato Cel (ej: 099999999)</span>
+				<span ng-show="errores.domicilioFormato"></br>- Error formato Domicilio(ej: Calle 1111)</span>
+				<span ng-show="errores.domicilioLaboralFormato"></br>- Error formato Domicilio Laboral(ej: Calle 1111)</span>
+				<span ng-show="errores.fechaVacia"></br>- Campo Fecha de Nacimiento vacio</span>
+				<span ng-show="errores.fechaFormato"></br>- Error de formato de Fecha de Nacimiento (ej: 25/05/2015 - usar seleccionador de fecha)</span>
+				<span ng-show="errores.rutFormato"></br>- Error de formato de Rut (ej: )</span>
+			</div>
+
+			<button class="btn btn-default navbar-btn" type="button" ng-click="modificarUsuario()" ng-hide="!modificandoUsuario">Aplicar Modificacion</button>
+			<button class="btn btn-default navbar-btn" type="button" ng-click="cancelarModificarUsuario()" ng-hide="!modificandoUsuario">Cancelar</button>
+		</div>
+	</div>	
+	
+	<div class="jumbotron" ng-show="cambiarContraseniaFormShow">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="password">Contraseña actual:</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="password" placeholder="Ingresar contraseña actual" ng-model="password">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nuevaPassword">Contraseña nueva:</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="nuevaPassword" placeholder="Ingresar nueva contraseña" ng-model="nuevaPassword">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="repetirPassword">Repetir contraseña:</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="repetirPassword" placeholder="Repetir nueva contraseña" ng-model="repetirPassword">
+				</div>
+			</div>
+
+			<div class="alert alert-danger" role="alert" ng-show="cambiarContraseniaFormShow && (errores.contraseniaVacia || errores.contraseniaIncorrecta || errores.contraseniaNuevaVacia || errores.contraseniaNuevaFormato || errores.contraseniaRepetirVacia || errores.contraseniaRepetirDesigual)">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span ng-show="errores.contraseniaVacia"></br>- Campo Contraseña actual vacio</span>
+				<span ng-show="errores.contraseniaIncorrecta"></br>- Contraseña incorrecta</span>
+				<span ng-show="errores.contraseniaNuevaVacia"></br>- Campo Contraseña nueva vacio</span>
+				<span ng-show="errores.contraseniaNuevaFormato"></br>- Error formato Contraseña (ej: Ejemplo1! - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula, una minuscula, un numero y un caracter no alfanumerico)</span>
+				<span ng-show="errores.contraseniaRepetirVacia"></br>- Campo Repetir contraseña vacio</span>
+				<span ng-show="errores.contraseniaRepetirDesigual"></br>- Campo Contraseña nueva y campo Repetir contraseña diferentes</span>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="cambiarContrasenia()">Cambiar</button>
+					<button type="button" class="btn btn-default" ng-click="cancelarCambiarContrasenia()">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>	
+
+</div>

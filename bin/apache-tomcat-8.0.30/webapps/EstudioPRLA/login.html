@@ -1,0 +1,23 @@
+<div ng-controller="loginController">
+	<div class="container"></div>
+	<form name="loginForm" class="form-signin">
+		<h2 class="form-signin-heading">Estudio PRLA</h2>
+		<label for="Usuario" class="sr-only">Usuario</label>
+		<input type="text" name="usuario" class="form-control" placeholder="Usuario" required="" autofocus="" ng-model="usuario" ng-model-options="{ updateOn: 'blur' }" required>
+		<label for="Contrasenia" class="sr-only">Contraseña</label>
+		<input type="password" name="contrasenia" class="form-control" placeholder="Contraseña" required="" ng-model="contrasenia" ng-model-options="{ updateOn: 'blur' }" required>
+
+		<div class="alert alert-danger" role="alert" ng-show="errores.contraseniaVacia || errores.usuarioVacio || errores.usuarioNoExistente || errores.contraseniaIncorrecta">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span>Corregir errores:</span>
+			<span ng-show="errores.usuarioVacio"></br>- Campo Usuario vacio</span>
+			<span ng-show="errores.contraseniaVacia"></br>- Campo Contraseña vacio</span>
+			<span ng-show="errores.usuarioNoExistente"></br>- Usuario no existente</span>
+			<span ng-show="errores.contraseniaIncorrecta"></br>- Contraseña incorrecta</span>
+		</div>
+
+		<button class="btn btn-lg btn-primary btn-block" type="button" ng-click="login()">Iniciar Sesion</button>
+	</form>
+</div>
+
+

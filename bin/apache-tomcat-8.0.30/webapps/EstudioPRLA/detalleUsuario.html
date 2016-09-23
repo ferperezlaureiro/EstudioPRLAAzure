@@ -1,0 +1,328 @@
+<div ng-controller="detalleUsuarioController">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+						<h1>Detalles usuario {{usuarioADetallar}}</h1>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li>
+	              				<button class="btn btn-default navbar-btn" type="button" ng-click="volver()">Volver</button>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+	<div class="jumbotron">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Datos generales del usuario</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li ng-hide="accionesPermitidas.usuarioModificar == '' || modificandoUsuario">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="cambiarAModificar()">Modificar Usuario</button>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span>Usuario: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.usuario}}</span>
+					<input type="text" class="form-control" id="usuario" placeholder="Ingresar Usuario" ng-model="usuarioDetallado.usuario" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Contrasenia: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.contrasenia}}</span>
+					<input type="text" class="form-control" id="contrasenia" placeholder="Ingresar Contrasenia" ng-model="usuarioDetallado.contrasenia" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Nombre: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.nombre}}</span>
+					<input type="text" class="form-control" id="nombre" placeholder="Ingresar Nombre" ng-model="usuarioDetallado.nombre" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Cedula: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.cedula}}</span>
+					<input type="text" class="form-control" id="cedula" placeholder="Ingresar Cedula" ng-model="usuarioDetallado.cedula" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Email: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.email}}</span>
+					<input type="text" class="form-control" id="email" placeholder="Ingresar Email" ng-model="usuarioDetallado.email" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Tel: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.tel}}</span>
+					<input type="text" class="form-control" id="tel" placeholder="Ingresar Tel" ng-model="usuarioDetallado.tel" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Cel: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.cel}}</span>
+					<input type="text" class="form-control" id="cel" placeholder="Ingresar Cel" ng-model="usuarioDetallado.cel" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Domicilio: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.domicilio}}</span>
+					<input type="text" class="form-control" id="domicilio" placeholder="Ingresar Domicilio" ng-model="usuarioDetallado.domicilio" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Domicilio Laboral: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.domicilioLaboral}}</span>
+					<input type="text" class="form-control" id="domicilioLaboral" placeholder="Ingresar Domicilio Laboral" ng-model="usuarioDetallado.domicilioLaboral" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Rut: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.rut}}</span>
+					<input type="text" class="form-control" id="rut" placeholder="Ingresar Rut" ng-model="usuarioDetallado.rut" ng-hide="!modificandoUsuario">
+				</li>
+				<li class="list-group-item">
+					<span>Fecha de Nacimiento: </span>
+					<span ng-hide="modificandoUsuario">{{usuarioDetallado.fechaDeNacimiento}}</span>
+					<div ng-hide="!modificandoUsuario">
+						<p class="input-group">
+							<input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFechaDeNacimiento" is-open="fechaNacimientoPopUp.opened" datepicker-options="dateOptions" close-text="Close"/>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+				</li>
+			</ul>
+
+
+
+			<div class="alert alert-danger" role="alert" ng-show="modificandoUsuario && (errores.usuarioVacio || errores.usuarioFormato || errores.usuarioDuplicado || errores.contraseniaVacia || errores.contraseniaFormato || errores.nombreVacio || errores.nombreFormato || errores.cedulaVacia || errores.cedulaFormato || errores.emailVacio || errores.emailFormato || errores.telFormato || errores.celVacio || errores.celFormato || errores.domicilioFormato || errores.domicilioLaboralFormato || errores.fechaVacia || errores.fechaFormato || errores.rutFormato)">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span>Corregir errores:</span>
+				<span ng-show="errores.usuarioVacio"></br>- Campo Usuario vacio</span>
+				<span ng-show="errores.usuarioFormato"></br>- Error formato Usuario (ej: Ejemplo - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula y una minuscula)</span>
+				<span ng-show="errores.usuarioDuplicado"></br>- Ya hay un usuario registrado con el mismo Usuario</span>
+				<span ng-show="errores.contraseniaVacia"></br>- Campo Contraseña vacio</span>
+				<span ng-show="errores.contraseniaFormato"></br>- Error formato Contraseña (ej: Ejemplo1! - Debe poseer 5 o mas caracteres incluyendo una letra mayuscula, una minuscula, un numero y un caracter no alfanumerico)</span>
+				<span ng-show="errores.nombreVacio"></br>- Campo Nombre vacio</span>
+				<span ng-show="errores.nombreFormato"></br>- Error formato Nombre (debe contener de dos a cuatro palabras)</span>
+				<span ng-show="errores.cedulaVacia"></br>- Campo Cedula vacio</span>
+				<span ng-show="errores.cedulaFormato"></br>- Error formato Cedula (ej: 51458794 - sin puntos ni guiones)</span>
+				<span ng-show="errores.emailVacio"></br>- Campo Email vacio</span>
+				<span ng-show="errores.emailFormato"></br>- Error formato Email (ej: ejemplo@ejemplo.com)</span>
+				<span ng-show="errores.telFormato"></br>- Error formato Tel (ej: 29999999)</span>
+				<span ng-show="errores.celVacio"></br>- Campo Cel vacio</span>
+				<span ng-show="errores.celFormato"></br>- Error formato Cel (ej: 099999999)</span>
+				<span ng-show="errores.domicilioFormato"></br>- Error formato Domicilio(ej: Calle 1111)</span>
+				<span ng-show="errores.domicilioLaboralFormato"></br>- Error formato Domicilio Laboral(ej: Calle 1111)</span>
+				<span ng-show="errores.fechaVacia"></br>- Campo Fecha de Nacimiento vacio</span>
+				<span ng-show="errores.fechaFormato"></br>- Error de formato de Fecha de Nacimiento (ej: 25/05/2015 - usar seleccionador de fecha)</span>
+				<span ng-show="errores.rutFormato"></br>- Error de formato de Rut (ej: )</span>
+			</div>
+
+			<button class="btn btn-default navbar-btn" type="button" ng-click="modificarUsuario()" ng-hide="!modificandoUsuario">Aplicar Modificacion</button>
+			<button class="btn btn-default navbar-btn" type="button" ng-click="cancelarModificarUsuario()" ng-hide="!modificandoUsuario">Cancelar</button>
+		</div>
+	</div>	
+
+	<div class="jumbotron" ng-hide="accionesPermitidas.asociarDesasociarUsuario == ''">
+		<div class="panel panel-default" ng-hide="casosAsignados == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Casos asignados al usuario</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li ng-hide="accionesPermitidas.asociarDesasociarUsuario == '' || casosDisponibles == ''">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAsignarCaso()">Asignar Caso</button>
+		              			</li>
+		              			<li ng-show="casosDisponibles == ''">
+		              				<span>No hay casos disponibles para asignar.</span>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<div class="table-responsive">
+				<table class="table table-striped"> 
+					<thead> 
+						<tr> 
+							<th>IUE</th> 
+							<th>Juzgado</th> 
+							<th>Turno</th> 
+							<th>Caratulado</th> 
+							<th>Suscrito</th> 
+							<th>Desasignar</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="caso in casosAsignados"> 
+							<td>{{caso.iUE}}</td> 
+							<td>{{caso.juzgado}}</td> 
+							<td>{{caso.turno}}</td> 
+							<td>{{caso.caratulado}}</td> 
+							<td>
+								<input type="checkbox" ng-disabled="true" ng-model="caso.suscrito">
+							</td> 
+							<td>
+								<button class="btn glyphicon glyphicon-remove" type="button" ng-click="desasignarCaso(caso.iUE)"></button>
+							</td>
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show="casosAsignados == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No hay casos asignados al usuario.</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li ng-hide="accionesPermitidas.asociarDesasociarCaso == '' || casosDisponibles == ''">
+	              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAsignarCaso()">Asignar Caso</button>
+	              			</li>
+	              			<li ng-show="casosDisponibles == ''">
+	              				<span>No hay casos disponibles para asignar.</span>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+	
+	<div class="jumbotron" ng-show="asignarCasoFormShow">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="caso">Seleccionar caso:</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="caso" ng-options="caso.iUE for caso in casosDisponibles" ng-model="casoSeleccionado">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="tipo">Tipo:</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="tipo" ng-options="tipo.tipo for tipo in tiposAsignacion" ng-model="tipo">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="asignarCaso()">Asignar</button>
+					<button type="button" class="btn btn-default" ng-click="cancelarAsginarCaso()">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>	
+
+	<div class="jumbotron" ng-hide="accionesPermitidas.asignarRebocarPermiso == ''">
+		<div class="panel panel-default" ng-hide="permisosOtorgados == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Permisos asignados al usuario</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li ng-hide="accionesPermitidas.asignarRebocarPermiso == '' || permisosRestantes == ''">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAsignarPermiso()">Asignar Permiso</button>
+		              			</li>
+		              			<li ng-show="permisosRestantes == ''">
+		              				<span>El usuario tiene asignados todos los permisos</span>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<div class="table-responsive">
+				<table class="table table-striped"> 
+					<thead> 
+						<tr> 
+							<th>Nombre</th> 
+							<th>Codigo</th> 
+							<th>Desasignar</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="permiso in permisosOtorgados"> 
+							<td>{{permiso.nombre}}</td> 
+							<td>{{permiso.code}}</td> 
+							<td>
+								<button class="btn glyphicon glyphicon-remove" type="button" ng-click="rebocarPermiso(permiso.code)"></button>
+							</td>
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show="permisosOtorgados == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No hay permisos asignados al usuario.</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li ng-hide="accionesPermitidas.asignarRebocarPermiso == '' || permisosRestantes == ''">
+	              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAsignarPermiso()">Asignar Permiso</button>
+	              			</li>
+	              			<li ng-show="permisosRestantes == ''">
+	              				<span>El usuario tiene asignados todos los permisos</span>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+	
+	<div class="jumbotron" ng-show="asignarPermisoFormShow">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="permiso">Seleccionar permiso:</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="permiso" ng-options="permiso.nombre for permiso in permisosRestantes" ng-model="permisoSeleccionado">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="asignarPermiso()">Asignar</button>
+					<button type="button" class="btn btn-default" ng-click="cancelarAsignarPermiso()">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>	
+</div>

@@ -1,0 +1,203 @@
+<div ng-controller="casoController" > 
+	<div class="jumbotron">
+		<div class="panel panel-default" ng-hide="accionesPermitidas.obtenerTodosCasos == '' || todosCasos == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Todos los casos</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li ng-hide="accionesPermitidas.casoAgregar == ''">
+		              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAgregarCaso()">Agregar Caso</button>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<div class="table-responsive">
+				<table class="table"> 
+					<thead> 
+						<tr> 
+							<th>IUE</th> 
+							<th>Juzgado</th> 
+							<th>Turno</th> 
+							<th>Caratulado</th> 
+							<th>Suscrito</th> 
+							<th ng-hide="accionesPermitidas.casoEliminar == ''">Eliminar</th> 
+							<th ng-hide="accionesPermitidas.casoModificar == ''">Modificar</th>
+							<th>Detalle</th>
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="caso in todosCasos"> 
+							<td>{{caso.iUE}}</td> 
+							<td>{{caso.juzgado}}</td> 
+							<td>{{caso.turno}}</td> 
+							<td>{{caso.caratulado}}</td> 
+							<td>
+								<input type="checkbox" ng-disabled="true" ng-model="caso.suscrito">
+							</td> 
+							<td ng-hide="accionesPermitidas.casoEliminar == ''"">
+								<button class="btn glyphicon glyphicon-trash" type="button" ng-click="eliminarCaso(caso.iUE)"></button>
+							</td> 
+							<td ng-hide="accionesPermitidas.casoModificar == ''">
+								<button class="btn glyphicon glyphicon-edit" type="button" ng-click="mostrarModificarCaso(todosCasos, caso.iUE)"></button>
+							</td> 
+							<td>
+								<button class="btn glyphicon glyphicon-eye-open" type="button" ng-click="detalleCaso(caso.iUE)"></button>
+							</td> 
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show="accionesPermitidas.obtenerTodosCasos != '' && todosCasos == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No hay casos agregados.</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li ng-hide="accionesPermitidas.casoAgregar == ''">
+	              				<button class="btn btn-default navbar-btn" type="button" ng-click="mostrarAgregarCaso()">Agregar Caso</button>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+
+		<div class="panel panel-default" ng-hide="misCasos == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Mis Casos</span>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped"> 
+					<thead> 
+						<tr> 
+							<th>IUE</th> 
+							<th>Juzgado</th> 
+							<th>Turno</th> 
+							<th>Caratulado</th> 
+							<th ng-hide="accionesPermitidas.casoModificar == ''">Suscrito</th> 
+							<th ng-hide="accionesPermitidas.casoEliminar == ''">Eliminar</th> 
+							<th ng-hide="accionesPermitidas.casoModificar == ''">Modificar</th>
+							<th>Detalle</th>
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="caso in misCasos"> 
+							<td>{{caso.iUE}}</td> 
+							<td>{{caso.juzgado}}</td> 
+							<td>{{caso.turno}}</td> 
+							<td>{{caso.caratulado}}</td> 
+							<td ng-hide="accionesPermitidas.casoModificar == ''">
+								<input type="checkbox" ng-disabled="true" ng-model="caso.suscrito">
+							</td> 
+							<td ng-hide="accionesPermitidas.casoEliminar == ''"">
+								<button class="btn glyphicon glyphicon-trash" type="button" ng-click="eliminarCaso(caso.iUE)"></button>
+							</td> 
+							<td ng-hide="accionesPermitidas.casoModificar == ''">
+								<button class="btn glyphicon glyphicon-edit" type="button" ng-click="mostrarModificarCaso(misCasos, caso.iUE)"></button>
+							</td> 
+							<td>
+								<button class="btn glyphicon glyphicon-eye-open" type="button" ng-click="detalleCaso(caso.iUE)"></button>
+							</td> 
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+
+		<div class="panel panel-default" ng-show="misCasos == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No tienes casos asignados.</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+
+	<div class="jumbotron" ng-show="casoFormShow">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="iue">IUE:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="iue" placeholder="Ingresar IUE" ng-model="iue">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="juzgado">Juzgado:</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="juzgado" ng-options="juzgado.juzgado for juzgado in juzgados" ng-model="juzgado">
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="turno">Turno:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="turno" placeholder="Ingresar turno" ng-model="turno">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="caratulado">Caratulado:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="caratulado" placeholder="Ingresar caratulado" ng-model="caratulado">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="suscrito">Suscrito:</label>
+				<div class="col-sm-10">
+					<input type="checkbox" class="checkbox" id="suscrito" placeholder="Ingresar suscrito" ng-model="suscrito">
+				</div>
+			</div>
+
+
+			<div class="alert alert-danger" role="alert" ng-show="errores.iueVacia || errores.turnoVacio || errores.caratuladoVacio|| errores.iueFormato || errores.turnoFormato || errores.iueDuplicado">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span>Corregir errores:</span>
+				<span ng-show="errores.iueVacia"></br>- Campo IUE vacio</span>
+				<span ng-show="errores.iueFormato"></br>- Error en formato de IUE (ej: 2-1542/2015)</span>
+				<span ng-show="errores.turnoVacio"></br>- Campo Turno vacio</span>
+				<span ng-show="errores.turnoFormato"></br>- El turno debe tener dos digitos numericos que van del 1 al 29</span>
+				<span ng-show="errores.caratuladoVacio"></br>- Campo Caratulado vacio</span>
+				<span ng-show="errores.iueDuplicado"></br>- Ya hay un caso registrado con el mismo IUE</span>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="agregarCaso()" ng-show="botonAgregarCaso">Agregar</button>
+					<button type="button" class="btn btn-default" ng-click="modificarCaso()" ng-show="botonModificarCaso">Modificar</button>
+					<button type="button" class="btn btn-default" ng-click="cancelarCaso()">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

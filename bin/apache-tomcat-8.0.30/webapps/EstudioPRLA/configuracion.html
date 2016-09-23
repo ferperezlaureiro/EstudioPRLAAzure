@@ -1,0 +1,63 @@
+<div ng-controller="configuracionController">
+	
+	<div class="jumbotron">
+		<div class="panel panel-default" ng-hide="acciones == ''"> 
+			<div class="panel-heading">
+				<nav class="navbar-default">
+		        	<div class="container-fluid">
+		          		<div class="navbar-header">
+		            		<span class="navbar-brand" href="#">Acciones</span>
+		          		</div>
+		          		<div id="navbar" class="navbar-collapse">
+		            		<ul class="nav navbar-nav">
+		              
+		            		</ul>
+		            		<ul class="nav navbar-nav navbar-right">
+		              			<li>
+		              			</li>
+		            		</ul>
+		          		</div>
+		        	</div>
+		      	</nav>
+			</div> 
+			<div class="table-responsive">
+				<table class="table table-striped"> 
+					<thead> 
+						<tr> 
+							<th>Accion</th> 
+							<th>Usuario</th> 
+							<th>Fecha</th> 
+							<th>Hora</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr ng-repeat="accion in acciones"> 
+							<td>{{accion.accion}}</td> 
+							<td>{{accion.usuarioString}}</td> 
+							<td>{{accion.fecha}}</td> 
+							<td>{{accion.hora}}</td> 
+						</tr> 
+					</tbody> 
+				</table> 
+			</div>
+		</div>
+		<div class="panel panel-default" ng-show="acciones == ''">
+			<nav class="navbar-default">
+	        	<div class="container-fluid">
+	          		<div class="navbar-header">
+	            		<span class="navbar-brand" href="#">No hay acciones registradas</span>
+	          		</div>
+	          		<div id="navbar" class="navbar-collapse">
+	            		<ul class="nav navbar-nav">
+	              
+	            		</ul>
+	            		<ul class="nav navbar-nav navbar-right">
+	              			<li>
+	              			</li>
+	            		</ul>
+	          		</div>
+	        	</div>
+	      	</nav>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,69 @@
+<div ng-controller="movimientoController">	
+	<div class="jumbotron">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2">Desde fecha:</label>
+				<div class="col-sm-10">
+					<p class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFechaDesde" is-open="fechaDesdePopUp.opened" datepicker-options="dateOptionsDesde" close-text="Close"/>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">Hasta fecha:</label>
+				<div class="col-sm-10">
+					<p class="input-group">
+						<input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="dtFechaHasta" is-open="fechaHastaPopUp.opened" datepicker-options="dateOptionsHasta" close-text="Close"/>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="button" class="btn btn-default" ng-click="cargarMovimientos()">Cargar Movimientos</button>
+				</div>
+			</div>
+		</form>
+		<div class="panel-group">
+			<uib-accordion close-others="true">
+				<div uib-accordion-group class="panel panel-primary" ng-repeat="caso in misCasosSuscriptos" heading="{{caso.iUE}} : {{caso.caratulado}}">
+					<accordion-body>
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="movimiento in caso.movimientos">
+							<span ng-hide="movimiento.sede == ''">Sede: {{movimiento.sede}} </br></span> 
+					      	<span ng-hide="movimiento.tipo == ''">Tipo: {{movimiento.tipo}} </br></span> 
+					      	<span ng-hide="movimiento.decreto == ''"><b><i>Decreto: {{movimiento.decreto}} </br>
+					      															{{movimiento.decretoContenido}} </br>
+					      															{{movimiento.decretoAutor}} </b></i></br>
+					      	</span> 
+							<span ng-hide="movimiento.vencimiento == ''">Vencimiento: {{movimiento.vencimiento}} </br></span>
+							<span ng-hide="movimiento.fecha == ''">Fecha: {{movimiento.fecha}} </br></span>
+							<button type="button" class="btn" ng-hide="movimiento.agregarMensaje" ng-click="movimiento.agregarMensaje = !movimiento.agregarMensaje">Notificar Cliente</button>
+							<div ng-hide="!movimiento.agregarMensaje">
+							<hr>
+								<h4>Notificar al cliente</h4>
+								<form role="form-inline">
+									<div class="form-group">
+										<textarea class="form-control" rows="3" required="" ng-model="movimiento.contenido"></textarea>
+									</div>
+			    					<div class="form-group">							
+										<label for="checkboxAdjuntar">Adjuntar movimiento al mensaje</label>
+										<input id="checkboxAdjuntar" class="checkbox" type="checkbox" ng-model="movimiento.adjuntarMovimiento"></input>
+									</div>
+									<button type="button" class="btn btn-success" ng-click="enviarMensaje(movimiento.index, caso.iUE)">Enviar mensaje</button>
+									<button type="button" class="btn" ng-click="movimiento.agregarMensaje = !movimiento.agregarMensaje">Cancelar</button>
+								</form>
+							</div>
+						</li>
+					</ul>
+					</accordion-body>
+				</div>
+	  		</uib-accordion>
+		</div>
+	</div>
+</div>
